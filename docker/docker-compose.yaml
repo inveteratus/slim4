@@ -39,6 +39,3 @@ services:
             - "..:/var/www/html"
         depends_on:
             - php
-
-volumes:
-    mysql:
