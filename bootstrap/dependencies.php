@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Classes\Database;
 use App\Classes\Validator;
 use App\Extensions\CsrfExtension;
