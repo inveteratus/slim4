@@ -29,6 +29,19 @@ class TestCase extends BaseTestCase
 
     protected function get(string $path, array $headers = []): ServerRequestInterface
     {
+        return $this->createRequest('GET', $path, $headers);
+    }
+
+    protected function post(string $path, array $postData = [], array $headers = []): ServerRequestInterface
+    {
+        return $this
+            ->createRequest('POST', $path, $headers)
+            ->withHeader('Content-Type', 'application/x-www-form-urlencoded')
+            ->withParsedBody($postData);
+    }
+
+    private function createRequest(string $method, string $path, array $headers = []): ServerRequestInterface
+    {
         $uri = new Uri(scheme: '', host: '', port: 80, path: $path);
         $handle = fopen('php://temp', 'w+');
         $stream = (new StreamFactory())->createStreamFromResource($handle);
@@ -39,7 +52,7 @@ class TestCase extends BaseTestCase
         }
 
         return new Request(
-            method: 'GET',
+            method: $method,
             uri: $uri,
             headers: $requestHeaders,
             cookies: [],

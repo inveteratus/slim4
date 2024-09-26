@@ -46,7 +46,7 @@ class LoginController
                         ->withStatus(StatusCodeInterface::STATUS_FOUND);
                 }
 
-                $error = 'Invalid Credentials';
+                $errors['email'] = 'Invalid Credentials';
             }
         }
 

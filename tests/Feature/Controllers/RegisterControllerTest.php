@@ -7,6 +7,7 @@ namespace Tests\Feature\Controllers;
 use Fig\Http\Message\StatusCodeInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
+use Slim\App;
 use Tests\TestCase;
 
 #[Group('controllers')]

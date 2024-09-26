@@ -41,7 +41,11 @@ class RegisterController
 
             if (!count($errors)) {
                 session_regenerate_id(true);
-                $_SESSION = ['uid' => $this->userRepository->createUser(...$params)];
+                $_SESSION = ['uid' => $this->userRepository->createUser(
+                    name: $params['name'],
+                    email: $params['email'],
+                    password: $params['password'],
+                )];
                 session_write_close();
 
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
