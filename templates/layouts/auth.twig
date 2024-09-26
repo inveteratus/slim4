@@ -28,6 +28,7 @@
                         <hr class="my-1 mx-4" />
                         <form action="{{ url_for('logout') }}" method="post">
                             <button type="submit" class="px-4 py-0.5 hover:bg-slate-100 w-full text-left">Logout</button>
+                            {% include "partials/csrf.twig" %}
                         </form>
                     </div>
                 </div>

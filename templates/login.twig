@@ -25,6 +25,7 @@
                 <button type="submit" class="bg-blue-500 text-sm text-white px-3 py-2">Login</button>
             </div>
 
+            {% include "partials/csrf.twig" %}
         </form>
         <p class="text-center"><a href="{{ url_for('register') }}">Don't have an account yet ?</a></p>
     </main>

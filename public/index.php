@@ -7,16 +7,22 @@ use App\Controllers\IndexController;
 use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
 use App\Controllers\RegisterController;
+use App\Extensions\CsrfExtension;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
-use App\Middleware\SessionMiddleware;
 use App\Repositories\UserRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter\ArrayAdapter;
 use Dotenv\Repository\RepositoryBuilder;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Respect\Validation\Factory;
+use Slim\App;
+use Slim\Csrf\Guard;
+use Slim\Exception\HttpBadRequestException;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 use Slim\Views\Twig;
@@ -40,26 +46,54 @@ $container = (new ContainerBuilder())
             ->addWriter(ArrayAdapter::class)
             ->immutable()
             ->make(), dirname(__DIR__))->load(),
-        Twig::class => fn() => Twig::create(__DIR__ . '/../templates', [
-            'debug' => true,
-            'cache' => false,
-        ]),
+
+        /* Middleware */
+
+        'csrf' => function(ContainerInterface $ci) {
+            $responseFactory = $ci->get(App::class)->getResponseFactory();
+            $guard = new Guard(responseFactory: $responseFactory, persistentTokenMode: true);
+            $guard->setFailureHandler(function (ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
+                throw new HttpBadRequestException($request, 'CSRF Error');
+            });
+            return $guard;
+        },
+
+        'twig' => fn(ContainerInterface $ci) => TwigMiddleware::create($ci->get(App::class), $ci->get(Twig::class)),
+
+        /* Classes */
+
         Database::class => fn(ContainerInterface $ci) => new Database(
             $ci->get('config')['DB_DSN'],
             $ci->get('config')['DB_USER'],
             $ci->get('config')['DB_PASSWORD']
         ),
+
+        Twig::class => function(ContainerInterface $ci) {
+            $twig = Twig::create(__DIR__ . '/../templates', [
+                'debug' => true,
+                'cache' => false,
+            ]);
+            $twig->addExtension(new CsrfExtension($ci->get('csrf')));
+            return $twig;
+        },
+
         Validator::class => fn(ContainerInterface $ci) => new Validator(),
+
+        /* Repositories */
+
         UserRepository::class => fn(ContainerInterface $ci) => new UserRepository($ci->get(Database::class)),
     ])
     ->build();
 
-/* Get the application instance and register the Twig middleware */
+/* Get the application instance */
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-$app->add(TwigMiddleware::create($app, $container->get(Twig::class)));
+$container->set(App::class, $app);
 
-/* Add the common middleware */
+session_start();
+
+/* Register the middleware */
+$app->add('twig');
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, true, true);
@@ -78,7 +112,7 @@ $app->group('', function (RouteCollectorProxyInterface $app) use ($container){
         $app->post('/logout', LogoutController::class)->setName('logout');
         $app->get('/home', HomeController::class)->setName('home');
     })->add($container->get(AuthMiddleware::class));
-})->add($container->get(SessionMiddleware::class));
+})->add('csrf');
 
 /* Finally, run the application */
 $app->run();

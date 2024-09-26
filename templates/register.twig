@@ -33,6 +33,7 @@
                 <button type="submit" class="bg-blue-500 text-sm text-white px-3 py-2">Register</button>
             </div>
 
+            {% include "partials/csrf.twig" %}
         </form>
         <p class="text-center"><a href="{{ url_for('login') }}">Already have an account ?</a></p>
     </main>
