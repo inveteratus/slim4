@@ -12,19 +12,14 @@ class CsrfExtension extends AbstractExtension implements GlobalsInterface
 
     public function getGlobals(): array
     {
-        $csrfNameKey = $this->csrf->getTokenNameKey();
-        $csrfValueKey = $this->csrf->getTokenValueKey();
-        $csrfName = $this->csrf->getTokenName();
-        $csrfValue = $this->csrf->getTokenValue();
-
         return [
             'csrf'   => [
                 'keys' => [
-                    'name'  => $csrfNameKey,
-                    'value' => $csrfValueKey
+                    'name'  => $this->csrf->getTokenNameKey(),
+                    'value' => $this->csrf->getTokenValueKey()
                 ],
-                'name'  => $csrfName,
-                'value' => $csrfValue
+                'name'  => $this->csrf->getTokenName(),
+                'value' => $this->csrf->getTokenValue()
             ]
         ];
     }
