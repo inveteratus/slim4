@@ -21,8 +21,7 @@ class Validator
             $value = array_key_exists($field, $data) ? $data[$field] : null;
             try {
                 $rule->assert($value);
-            }
-            catch (NestedValidationException $exception) {
+            } catch (NestedValidationException $exception) {
                 $messages = $exception->getMessages();
                 $errors[$field] = array_shift($messages) . '.';
             }

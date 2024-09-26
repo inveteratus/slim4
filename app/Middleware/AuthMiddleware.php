@@ -3,10 +3,10 @@
 namespace App\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
+use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Routing\RouteContext;
 
@@ -25,7 +25,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         return $handler->handle(
             $request->withAttribute('uid', $uid)
-                ->withAttribute('uid', $uid)
+                ->withAttribute('uid', $uid),
         );
     }
 }

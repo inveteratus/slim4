@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 Factory::setDefaultInstance(
     (new Factory())
         ->withRuleNamespace('App\\Validation\\Rules')
-        ->withExceptionNamespace('App\\Validation\\Exceptions')
+        ->withExceptionNamespace('App\\Validation\\Exceptions'),
 );
 
 session_start();

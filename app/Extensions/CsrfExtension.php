@@ -8,19 +8,19 @@ use Twig\Extension\GlobalsInterface;
 
 class CsrfExtension extends AbstractExtension implements GlobalsInterface
 {
-    public function __construct(protected Guard $csrf) { }
+    public function __construct(protected Guard $csrf) {}
 
     public function getGlobals(): array
     {
         return [
-            'csrf'   => [
+            'csrf' => [
                 'keys' => [
-                    'name'  => $this->csrf->getTokenNameKey(),
-                    'value' => $this->csrf->getTokenValueKey()
+                    'name' => $this->csrf->getTokenNameKey(),
+                    'value' => $this->csrf->getTokenValueKey(),
                 ],
-                'name'  => $this->csrf->getTokenName(),
-                'value' => $this->csrf->getTokenValue()
-            ]
+                'name' => $this->csrf->getTokenName(),
+                'value' => $this->csrf->getTokenValue(),
+            ],
         ];
     }
 }

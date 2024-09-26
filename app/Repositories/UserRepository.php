@@ -8,7 +8,7 @@ use PDO;
 
 class UserRepository
 {
-    public function __construct(protected Database $db) { }
+    public function __construct(protected Database $db) {}
 
     public function getByEmail(string $email): ?object
     {
@@ -40,6 +40,6 @@ class UserRepository
             'updated_at' => $now,
         ]);
 
-        return (int)$this->db->lastInsertId();
+        return (int) $this->db->lastInsertId();
     }
 }

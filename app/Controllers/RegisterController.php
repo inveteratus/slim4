@@ -34,7 +34,7 @@ class RegisterController
         $errors = [];
 
         if ($request->getMethod() == 'POST') {
-            $params = (array)$request->getParsedBody();
+            $params = (array) $request->getParsedBody();
             $errors = $this->validator->validate($params, $this->rules());
 
             if (!count($errors)) {

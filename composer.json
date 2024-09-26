@@ -19,7 +19,8 @@
     },
 
     "require-dev": {
-        "phpstan/phpstan": "^1.12"
+        "phpstan/phpstan": "^1.12",
+        "symplify/easy-coding-standard": "^12.3"
     },
 
     "scripts": {
@@ -29,6 +30,8 @@
         "db.import": "docker exec -i db mariadb -uslim4 -psecret slim4 < schema.sql",
         "db.export": "docker exec db mariadb-dump -uslim4 -psecret slim4 > schema.sql",
 
-        "analyse": "phpstan --memory-limit=1g"
+        "analyse": "phpstan --memory-limit=1g",
+        "check-cs": "ecs check",
+        "fix-cs": "ecs check --fix"
     }
 }

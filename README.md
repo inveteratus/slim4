@@ -46,3 +46,11 @@ Static analysis with [PHPStan](https://phpstan.org/) can be checked with:
 ```shell
 composer analyse
 ```
+
+Code styles are enforced with the [Easy Coding Standard](https://tomasvotruba.com/blog/zen-config-in-ecs) project
+and can be operated with:
+
+```shell
+composer check-cs
+composer fix-cs
+```

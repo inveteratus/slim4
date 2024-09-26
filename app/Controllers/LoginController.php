@@ -28,14 +28,14 @@ class LoginController
         $errors = [];
 
         if ($request->getMethod() == 'POST') {
-            $params = (array)$request->getParsedBody();
+            $params = (array) $request->getParsedBody();
             $errors = $this->validator->validate($params, $this->rules());
 
             if (!count($errors)) {
                 $user = $this->userRepository->getByEmail($params['email']);
                 if ($user && password_verify($params['password'], $user->password)) {
                     session_regenerate_id(true);
-                    $_SESSION = ['uid' => (int)$user->id];
+                    $_SESSION = ['uid' => (int) $user->id];
                     session_write_close();
 
                     $routeParser = RouteContext::fromRequest($request)->getRouteParser();

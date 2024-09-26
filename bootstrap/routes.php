@@ -9,7 +9,6 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 return function (App $app) {
-
     /* Guest only routes */
     $app->group('', function (RouteCollectorProxyInterface $app) {
         $app->get('/', IndexController::class)->setName('index');
@@ -22,5 +21,4 @@ return function (App $app) {
         $app->post('/logout', LogoutController::class)->setName('logout');
         $app->get('/home', HomeController::class)->setName('home');
     })->add($app->getContainer()->get('auth'));
-
 };

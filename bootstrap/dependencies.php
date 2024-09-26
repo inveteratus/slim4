@@ -39,10 +39,10 @@ return [
     Database::class => fn(ContainerInterface $ci) => new Database(
         $ci->get('settings')['DB_DSN'],
         $ci->get('settings')['DB_USER'],
-        $ci->get('settings')['DB_PASSWORD']
+        $ci->get('settings')['DB_PASSWORD'],
     ),
 
-    Twig::class => function(ContainerInterface $ci) {
+    Twig::class => function (ContainerInterface $ci) {
         $twig = Twig::create(__DIR__ . '/../templates', [
             'debug' => true,
             'cache' => false,
@@ -59,7 +59,7 @@ return [
 
     'auth' => fn() => new AuthMiddleware(),
 
-    'csrf' => function(ContainerInterface $ci) {
+    'csrf' => function (ContainerInterface $ci) {
         $responseFactory = $ci->get(App::class)->getResponseFactory();
         $guard = new Guard(responseFactory: $responseFactory, persistentTokenMode: true);
         $guard->setFailureHandler(function (ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
