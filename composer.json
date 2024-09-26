@@ -4,24 +4,29 @@
             "App\\": "app/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
 
     "require": {
         "php": "^8.3",
         "ext-pdo": "*",
+        "monolog/monolog": "^3.7",
+        "php-di/php-di": "^7.0",
+        "respect/validation": "^2.3",
+        "slim/csrf": "^1.5",
         "slim/slim": "^4.14",
         "slim/psr7": "^1.7",
-        "slim/csrf": "^1.5",
-        "php-di/php-di": "^7.0",
-        "vlucas/phpdotenv": "^5.6",
-        "monolog/monolog": "^3.7",
-        "respect/validation": "^2.3",
-        "slim/twig-view": "^3.4"
+        "slim/twig-view": "^3.4",
+        "vlucas/phpdotenv": "^5.6"
     },
-
     "require-dev": {
         "phpstan/phpstan": "^1.12",
-        "symplify/easy-coding-standard": "^12.3",
-        "slevomat/coding-standard": "^8.15"
+        "phpunit/phpunit": "^11.3",
+        "slevomat/coding-standard": "^8.15",
+        "symplify/easy-coding-standard": "^12.3"
     },
 
     "scripts": {
@@ -33,11 +38,14 @@
 
         "analyse": "phpstan --memory-limit=1g",
         "cs.check": "ecs check",
-        "cs.fix": "ecs check --fix"
+        "cs.fix": "ecs check --fix",
+        "test": "docker exec -t php vendor/bin/phpunit --testdox --colors"
     },
+
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+        },
+        "sort-packages": true
     }
 }

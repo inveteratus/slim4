@@ -12,10 +12,14 @@ return ECSConfig::configure()
         __DIR__ . '/app',
         __DIR__ . '/bootstrap',
         __DIR__ . '/public',
+        __DIR__ . '/tests',
     ])
     ->withPreparedSets(psr12: true)
     ->withPhpCsFixerSets(perCS20: true)
-    ->withRules([
+    ->withConfiguredRule(
         DeclareStrictTypesSniff::class,
-    ])
+        [
+            'spacesCountAroundEqualsSign' => false,
+        ],
+    )
     ->withRootFiles();

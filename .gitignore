@@ -1,4 +1,5 @@
 .env
 .idea/
+.phpunit.cache/
 docker/mysql/
 vendor/
