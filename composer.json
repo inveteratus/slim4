@@ -39,7 +39,10 @@
         "analyse": "phpstan --memory-limit=1g",
         "cs.check": "ecs check",
         "cs.fix": "ecs check --fix",
-        "test": "docker exec -t php vendor/bin/phpunit --testdox --colors"
+        "test": "docker exec -t php vendor/bin/phpunit --testdox --colors",
+
+        "check": ["@analyse", "@cs.check", "@test"],
+        "clean": ["@analyse", "@cs.fix", "@test"]
     },
 
     "config": {

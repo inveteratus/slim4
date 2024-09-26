@@ -39,7 +39,7 @@ Any changes to the database can be written back to `schema.sql` with:
 composer db.export
 ```
 
-## Testing
+## Testing, Code Analysis and Style
 
 Static analysis with [PHPStan](https://phpstan.org/) can be checked with:
 
@@ -54,3 +54,19 @@ and can be operated with:
 composer cs.check
 composer cs.fix
 ```
+
+Testing is performed with [PHPUnit](https://phpunit.de/) and can be run with:
+
+```shell
+composer test
+```
+
+In order to speed up development, there are two extra commands:
+
+```shell
+composer check
+composer clean
+```
+
+* `check` performs static analysis, checks code-style and runs the tests suite.
+* `clean` performs static analysis, checks and fixes code-style and runs the tests suite.
