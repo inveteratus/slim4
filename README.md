@@ -39,7 +39,7 @@ Any changes to the database can be written back to `schema.sql` with:
 composer db.export
 ```
 
-** Testing
+## Testing
 
 Static analysis with [PHPStan](https://phpstan.org/) can be checked with:
 
