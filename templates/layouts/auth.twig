@@ -13,10 +13,11 @@
 <body class="antialiased bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700">
     <header class="bg-white">
         <nav class="container mx-auto flex items-center justify-between h-16">
-            <h1><a href="{{ url_for('home') }}" class="p-3 hover:bg-slate-100 font-medium">Slim 4 Demo</a></h1>
+            <h1><a href="{{ url_for('home') }}" class="p-3 hover:bg-slate-100 font-medium rounded">Slim 4 Demo</a></h1>
             <div>
                 <div class="relative" x-data="{open:false}">
-                    <button type="button" class="hover:bg-slate-100 p-2.5 rounded-full" @click="open=!open">
+                    <button type="button" class="hover:bg-slate-100 p-2.5 rounded inline-flex space-x-1" @click="open=!open">
+                        <span>{{ user.name }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                         </svg>
