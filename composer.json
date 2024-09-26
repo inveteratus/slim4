@@ -1,0 +1,28 @@
+{
+    "autoload":{
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+
+    "require": {
+        "php": "^8.3",
+        "ext-pdo": "*",
+        "slim/slim": "^4.14",
+        "slim/psr7": "^1.7",
+        "slim/csrf": "^1.5",
+        "php-di/php-di": "^7.0",
+        "vlucas/phpdotenv": "^5.6",
+        "monolog/monolog": "^3.7",
+        "respect/validation": "^2.3",
+        "slim/twig-view": "^3.4"
+    },
+
+    "scripts": {
+        "up": "docker compose -f docker/docker-compose.yaml up -d",
+        "down": "docker compose -f docker/docker-compose.yaml down",
+
+        "db.import": "docker exec -i db mariadb -uslim4 -psecret slim4 < schema.sql",
+        "db.export": "docker exec db mariadb-dump -uslim4 -psecret slim4 > schema.sql"
+    }
+}

@@ -1,0 +1,44 @@
+services:
+
+    db:
+        container_name: db
+        image: mariadb:11.5.2
+        volumes:
+            - "./mysql:/var/lib/mysql"
+        environment:
+            MYSQL_DATABASE: slim4
+            MYSQL_ROOT_PASSWORD: admin
+            MYSQL_USER: slim4
+            MYSQL_PASSWORD: secret
+
+    adminer:
+        container_name: adminer
+        image: adminer:4.8.1-standalone
+        ports:
+            - "8080:8080"
+        depends_on:
+            - db
+
+    php:
+        container_name: php
+        build:
+            dockerfile: Dockerfile
+            context: .
+        volumes:
+            - "..:/var/www/html"
+        depends_on:
+            - db
+
+    nginx:
+        container_name: web
+        image: nginx:1.27.1-alpine3.20
+        ports:
+            - "8000:80"
+        volumes:
+            - "./nginx.conf:/etc/nginx/conf.d/default.conf"
+            - "..:/var/www/html"
+        depends_on:
+            - php
+
+volumes:
+    mysql:
