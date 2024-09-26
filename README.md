@@ -25,7 +25,7 @@ only logout from there, but you should be able to login with the credentials you
 
 ## Database management
 
-The database can be managed by accessing http://localhost:8080 in your browser. Login with th following credentials:
+The database can be managed by accessing http://localhost:8080 in your browser. Login with the following credentials:
 
 * System: `MySQL`
 * Server: `db`
