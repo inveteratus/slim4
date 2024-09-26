@@ -31,7 +31,7 @@
         "db.export": "docker exec db mariadb-dump -uslim4 -psecret slim4 > schema.sql",
 
         "analyse": "phpstan --memory-limit=1g",
-        "check-cs": "ecs check",
-        "fix-cs": "ecs check --fix"
+        "cs.check": "ecs check",
+        "cs.fix": "ecs check --fix"
     }
 }

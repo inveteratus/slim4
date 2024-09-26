@@ -51,6 +51,6 @@ Code styles are enforced with the [Easy Coding Standard](https://tomasvotruba.co
 and can be operated with:
 
 ```shell
-composer check-cs
-composer fix-cs
+composer cs.check
+composer cs.fix
 ```
