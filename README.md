@@ -38,3 +38,11 @@ Any changes to the database can be written back to `schema.sql` with:
 ```shell
 composer db.export
 ```
+
+** Testing
+
+Static analysis with [PHPStan](https://phpstan.org/) can be checked with:
+
+```shell
+composer analyse
+```

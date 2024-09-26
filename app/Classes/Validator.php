@@ -2,10 +2,16 @@
 
 namespace App\Classes;
 
+use Respect\Validation\ChainedValidator;
 use Respect\Validation\Exceptions\NestedValidationException;
 
 class Validator
 {
+    /**
+     * @param array<string,mixed> $data
+     * @param array<string,ChainedValidator> $rules
+     * @return array<string,string>
+     */
     public function validate(array $data, array $rules): array
     {
         $errors = [];

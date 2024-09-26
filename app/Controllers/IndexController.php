@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use DI\Attribute\Inject;
+use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Psr7\Request;
-use Slim\Psr7\Response;
 use Slim\Views\Twig;
 
 class IndexController

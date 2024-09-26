@@ -18,11 +18,17 @@
         "slim/twig-view": "^3.4"
     },
 
+    "require-dev": {
+        "phpstan/phpstan": "^1.12"
+    },
+
     "scripts": {
         "up": "docker compose -f docker/docker-compose.yaml up -d",
         "down": "docker compose -f docker/docker-compose.yaml down",
 
         "db.import": "docker exec -i db mariadb -uslim4 -psecret slim4 < schema.sql",
-        "db.export": "docker exec db mariadb-dump -uslim4 -psecret slim4 > schema.sql"
+        "db.export": "docker exec db mariadb-dump -uslim4 -psecret slim4 > schema.sql",
+
+        "analyse": "phpstan --memory-limit=1g"
     }
 }

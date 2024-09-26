@@ -6,9 +6,10 @@ use App\Classes\Validator;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Respect\Validation\ChainedValidator;
 use Respect\Validation\Validator as V;
 use Slim\Psr7\Request;
-use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
@@ -53,6 +54,9 @@ class LoginController
         ]);
     }
 
+    /**
+     * @return array<string,ChainedValidator>
+     */
     private function rules(): array
     {
         return [
