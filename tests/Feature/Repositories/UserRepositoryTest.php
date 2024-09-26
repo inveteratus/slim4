@@ -8,7 +8,6 @@ use App\Classes\Database;
 use App\Repositories\UserRepository;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
-use Slim\App;
 use Tests\TestCase;
 
 #[Group('repositories')]
@@ -17,46 +16,37 @@ class UserRepositoryTest extends TestCase
     #[Test]
     public function canCreateUser(): void
     {
-        $this->expectNotToPerformAssertions();
+        $this->withTransactions(function () {
+            $this->expectNotToPerformAssertions();
 
-        $app = $this->getAppInstance();
-        $db = $app->getContainer()->get(Database::class);
-        $userRepository = $app->getContainer()->get(UserRepository::class);
-
-        $db->beginTransaction();
-        $userRepository->createUser(name: 'test', email: 'test@example.com', password: 'password');
-        $db->rollBack();
+            $userRepository = $this->getAppInstance()->getContainer()->get(UserRepository::class);
+            $userRepository->createUser(name: 'test', email: 'test@example.com', password: 'password');
+        });
     }
 
     #[Test]
     public function canGetUserById(): void
     {
-        $app = $this->getAppInstance();
-        $db = $app->getContainer()->get(Database::class);
-        $userRepository = $app->getContainer()->get(UserRepository::class);
+        $this->withTransactions(function () {
+            $userRepository = $this->getAppInstance()->getContainer()->get(UserRepository::class);
+            $id = $this->createUser()->id;
+            $user = $userRepository->getById($id);
 
-        $db->beginTransaction();
-        $id = $userRepository->createUser(name: 'test', email: 'test@example.com', password: 'password');
-        $user = $userRepository->getById($id);
-        $db->rollBack();
-
-        $this->assertIsObject($user);
-        $this->assertEquals($id, $user->id);
+            $this->assertIsObject($user);
+            $this->assertEquals($id, $user->id);
+        });
     }
 
     #[Test]
     public function canGetUserByEmail(): void
     {
-        $app = $this->getAppInstance();
-        $db = $app->getContainer()->get(Database::class);
-        $userRepository = $app->getContainer()->get(UserRepository::class);
+        $this->withTransactions(function () {
+            $userRepository = $this->getAppInstance()->getContainer()->get(UserRepository::class);
+            $email = $this->createUser()->email;
+            $user = $userRepository->getByEmail($email);
 
-        $db->beginTransaction();
-        $id = $userRepository->createUser(name: 'test', email: 'test@example.com', password: 'password');
-        $user = $userRepository->getByEmail('test@example.com');
-        $db->rollBack();
-
-        $this->assertIsObject($user);
-        $this->assertEquals($id, $user->id);
+            $this->assertIsObject($user);
+            $this->assertEquals($email, $user->email);
+        });
     }
 }
