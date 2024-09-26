@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
@@ -12,4 +13,5 @@ return ECSConfig::configure()
         __DIR__ . '/public',
     ])
     ->withPreparedSets(psr12: true)
-    ->withPhpCsFixerSets(perCS20: true);
+    ->withPhpCsFixerSets(perCS20: true)
+    ->withRootFiles();
