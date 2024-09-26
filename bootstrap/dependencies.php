@@ -18,6 +18,7 @@ use Slim\Exception\HttpBadRequestException;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
 
 return [
 
@@ -73,6 +74,11 @@ return [
     'guest' => fn() => new GuestMiddleware(),
 
     'twig' => fn(ContainerInterface $ci) => TwigMiddleware::create($ci->get(App::class), $ci->get(Twig::class)),
+
+    'whoops' => fn(ContainerInterface $ci) => new WhoopsMiddleware([
+        'enable' => true,
+        'title' => 'Slim 4 Demo',
+    ]),
 
     /*
      * Repositories
