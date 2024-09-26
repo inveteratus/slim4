@@ -8,7 +8,7 @@ A simple demonstration of a working Slim 4 application with basic authentication
 git clone git@github.com:inveteratus/slim4.git
 cd slim4
 cp env.example .env
-compose up
+composer up
 ```
 
 After a moment, you should be able to access the application by pointing your browser at http://localhost:8000
