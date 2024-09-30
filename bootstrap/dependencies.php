@@ -9,10 +9,12 @@ use App\Extensions\SettingsExtension;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Repositories\UserRepository;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use Slim\App;
 use Slim\Csrf\Guard;
 use Slim\Exception\HttpBadRequestException;
@@ -56,6 +58,11 @@ return [
         $twig->addExtension(new CsrfExtension($ci->get('csrf')));
         $twig->addExtension(new SettingsExtension($ci->get('settings')));
         return $twig;
+    },
+
+    LoggerInterface::class => function (ContainerInterface $ci) {
+        $logger = new Logger($ci->get('settings')['APP_NAME']);
+        return $logger;
     },
 
     Validator::class => fn(ContainerInterface $ci) => new Validator(),
