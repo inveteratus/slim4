@@ -21,6 +21,7 @@ class Validator
         foreach ($rules as $field => $rule) {
             $rule->setName(ucwords($field));
             $value = array_key_exists($field, $data) ? $data[$field] : null;
+
             try {
                 $rule->assert($value);
             } catch (NestedValidationException $exception) {

@@ -9,6 +9,7 @@ use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Psr7\Request;
 use Slim\Views\Twig;
+use Twig\Error\Error;
 
 class HomeController
 {
@@ -18,6 +19,9 @@ class HomeController
     #[Inject]
     protected UserRepository $userRepository;
 
+    /**
+     * @throws Error
+     */
     public function __invoke(Request $request, Response $response): Response
     {
         return $this->view->render($response, 'home.twig', [

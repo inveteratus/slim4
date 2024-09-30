@@ -10,9 +10,6 @@ use PDOStatement;
 class Database extends PDO
 {
     /**
-     * @param string $dsn
-     * @param string|null $username
-     * @param string|null $password
      * @param array<array-key,mixed> $options
      */
     public function __construct(string $dsn, ?string $username = null, string $password = null, array $options = [])
@@ -21,9 +18,7 @@ class Database extends PDO
     }
 
     /**
-     * @param string $query
-     * @param array<string,mixed> $context
-     * @return PDOStatement
+     * @param array<array-key,mixed> $context
      */
     public function execute(string $query, array $context = []): PDOStatement
     {

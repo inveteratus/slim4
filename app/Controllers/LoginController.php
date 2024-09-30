@@ -14,6 +14,7 @@ use Respect\Validation\Validator as V;
 use Slim\Psr7\Request;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
+use Twig\Error\Error;
 
 class LoginController
 {
@@ -24,6 +25,9 @@ class LoginController
     #[Inject]
     protected Validator $validator;
 
+    /**
+     * @throws Error
+     */
     public function __invoke(Request $request, Response $response): Response
     {
         $params = [];

@@ -12,6 +12,9 @@ class CsrfExtension extends AbstractExtension implements GlobalsInterface
 {
     public function __construct(protected Guard $csrf) {}
 
+    /**
+     * @return array<string,array<string,string|array<string,string>>>
+     */
     public function getGlobals(): array
     {
         return [
