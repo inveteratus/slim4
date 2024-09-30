@@ -18,6 +18,7 @@ use Slim\Exception\HttpBadRequestException;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use Twig\Extension\DebugExtension;
 use Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
 
 return [
@@ -50,6 +51,7 @@ return [
             'debug' => true,
             'cache' => false,
         ]);
+        $twig->addExtension(new DebugExtension());
         $twig->addExtension(new CsrfExtension($ci->get('csrf')));
         return $twig;
     },
@@ -77,7 +79,7 @@ return [
 
     'whoops' => fn(ContainerInterface $ci) => new WhoopsMiddleware([
         'enable' => true,
-        'title' => 'Slim 4 Demo',
+        'title' => $ci->get('settings')['APP_NAME'],
     ]),
 
     /*
