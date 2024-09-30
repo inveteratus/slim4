@@ -10,5 +10,5 @@ return function (App $app) {
 
     $app->add('csrf');
     $app->add('twig');
-    $app->add('whoops');
+    $app->add('oops');
 };

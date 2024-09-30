@@ -3,7 +3,7 @@
 {% block body %}
     <header class="bg-white">
         <nav class="container mx-auto flex items-center justify-between h-16">
-            <h1><a href="{{ url_for('index') }}" class="p-3 hover:bg-slate-100 font-medium rounded">Slim 4 Demo</a></h1>
+            <h1><a href="{{ url_for('index') }}" class="p-3 hover:bg-slate-100 font-medium rounded">{{ settings.APP_NAME }}</a></h1>
             <div>
                 <a href="{{ url_for('login') }}" class="p-3 hover:bg-slate-100 rounded">Login</a>
                 <a href="{{ url_for('register') }}" class="p-3 hover:bg-slate-100 rounded">Register</a>

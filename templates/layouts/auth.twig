@@ -10,7 +10,7 @@
 {% block body %}
     <header class="bg-white">
         <nav class="container mx-auto flex items-center justify-between h-16">
-            <h1><a href="{{ url_for('home') }}" class="p-3 hover:bg-slate-100 font-medium rounded">Slim 4 Demo</a></h1>
+            <h1><a href="{{ url_for('home') }}" class="p-3 hover:bg-slate-100 font-medium rounded">{{ settings.APP_NAME }}</a></h1>
             <div>
                 <div class="relative" x-data="{open:false}">
                     <button type="button" class="hover:bg-slate-100 p-2.5 rounded inline-flex space-x-1" @click="open=!open">

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Classes\Database;
 use App\Classes\Validator;
 use App\Extensions\CsrfExtension;
+use App\Extensions\SettingsExtension;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Repositories\UserRepository;
@@ -53,6 +54,7 @@ return [
         ]);
         $twig->addExtension(new DebugExtension());
         $twig->addExtension(new CsrfExtension($ci->get('csrf')));
+        $twig->addExtension(new SettingsExtension($ci->get('settings')));
         return $twig;
     },
 
@@ -75,12 +77,12 @@ return [
 
     'guest' => fn() => new GuestMiddleware(),
 
-    'twig' => fn(ContainerInterface $ci) => TwigMiddleware::create($ci->get(App::class), $ci->get(Twig::class)),
-
-    'whoops' => fn(ContainerInterface $ci) => new WhoopsMiddleware([
+    'oops' => fn(ContainerInterface $ci) => new WhoopsMiddleware([
         'enable' => true,
         'title' => $ci->get('settings')['APP_NAME'],
     ]),
+
+    'twig' => fn(ContainerInterface $ci) => TwigMiddleware::create($ci->get(App::class), $ci->get(Twig::class)),
 
     /*
      * Repositories
@@ -92,6 +94,6 @@ return [
      * Settings
      */
 
-    'settings' => fn() => (require __DIR__ . '/settings.php'),
+    'settings' => fn() => require __DIR__ . '/settings.php',
 
 ];
