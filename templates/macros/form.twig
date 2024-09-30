@@ -1,0 +1,37 @@
+{% macro label(for, text) %}
+    <label for="id_{{ for }}" class="text-sm text-slate-600 font-medium">{{ text }}</label>
+{% endmacro %}
+
+{% macro email(label, name, value="", errors=[], extra=null) %}
+    <div class="flex flex-col space-y-0.5">
+        {{ _self.label(name, label) }}
+        <input id="id_{{ name }}" type="email" name="{{ name }}" value="{{ value }}"{% if extra %} {{ extra|raw }}{% endif %} class="border-slate-300 rounded">
+        {% if errors %}
+            <span class="text-sm text-red-500">{{ errors }}</span>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro text(label, name, value="", errors=[], extra=null) %}
+    <div class="flex flex-col space-y-0.5">
+        {{ _self.label(name, label) }}
+        <input id="id_{{ name }}" type="text" name="{{ name }}" value="{{ value }}"{% if extra %} {{ extra|raw }}{% endif %} class="border-slate-300 rounded">
+        {% if errors %}
+            <span class="text-sm text-red-500">{{ errors }}</span>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro password(label, name, errors=[], extra=null) %}
+    <div class="flex flex-col space-y-0.5">
+        {{ _self.label(name, label) }}
+        <input id="id_{{ name }}" type="password" name="{{ name }}"{% if extra %} {{ extra|raw }}{% endif %} class="border-slate-300 rounded">
+        {% if errors %}
+            <span class="text-sm text-red-500">{{ errors }}</span>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro submit(text) %}
+    <button type="submit" class="bg-blue-500 text-sm text-white px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-slate-100 focus:ring-blue-500 focus:ring-offset-1">{{ text }}</button>
+{% endmacro %}

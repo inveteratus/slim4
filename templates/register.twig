@@ -1,41 +1,19 @@
 {% extends 'layouts/guest.twig' %}
+{% import "macros/form.twig" as input %}
 
 {% block content %}
 
     <main class="flex flex-col space-y-2 flex-grow items-center justify-center">
         <form action="{{ url_for('register') }}" method="post" class="bg-slate-100 p-8 flex flex-col space-y-4 max-w-sm w-full shadow rounded-lg">
-
-            <div class="flex flex-col space-y-0.5">
-                <label for="name" class="text-sm text-slate-600">Name</label>
-                <input id="name" type="text" name="name" value="{{ form.name }}" required autofocus autocomplete="name" class="rounded" />
-                {% if errors.name %}
-                    <span class="text-sm text-red-500">{{ errors.name }}</span>
-                {% endif %}
+            {{ input.text('Name', 'name', form.name, errors.name, 'autofocus autocomplete="name" required') }}
+            {{ input.email('Email', 'email', form.email, errors.email, 'autocomplete="email" required') }}
+            {{ input.password('Password', 'password', errors.password, 'autocomplete="new-password" required') }}
+            <div class="pt-2">
+                {{ input.submit("Register") }}
             </div>
-
-            <div class="flex flex-col space-y-0.5">
-                <label for="email" class="text-sm text-slate-600">Email</label>
-                <input id="email" type="email" name="email" value="{{ form.email }}" required autocomplete="email" class="rounded" />
-                {% if errors.email %}
-                    <span class="text-sm text-red-500">{{ errors.email }}</span>
-                {% endif %}
-            </div>
-
-            <div class="flex flex-col space-y-0.5">
-                <label for="password" class="text-sm text-slate-600">Password</label>
-                <input id="password" type="password" name="password" required autocomplete="new-password" class="rounded" />
-                {% if errors.password %}
-                    <span class="text-sm text-red-500">{{ errors.password }}</span>
-                {% endif %}
-            </div>
-
-            <div>
-                <button type="submit" class="bg-blue-500 text-sm text-white px-3 py-2 rounded">Register</button>
-            </div>
-
             {% include "partials/csrf.twig" %}
         </form>
-        <p class="text-center"><a href="{{ url_for('login') }}">Already have an account ?</a></p>
+        <p class="text-center text-sm"><a href="{{ url_for('login') }}" class="text-slate-600 hover:underline focus:underline focus:outline-none">Already have an account ?</a></p>
     </main>
 
 {% endblock %}
